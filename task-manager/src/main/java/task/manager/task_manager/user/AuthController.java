@@ -1,13 +1,13 @@
 package task.manager.task_manager.user;
 
 
-import com.example.task_management.task.ApiSuccessResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import task.manager.task_manager.task.ApiSuccessResponse;
 
 @RestController
 @RequestMapping("/api/v1/auth")

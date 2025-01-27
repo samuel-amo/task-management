@@ -1,9 +1,9 @@
 package task.manager.task_manager.task;
 
-import com.example.task_management.user.AppUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import task.manager.task_manager.user.AppUser;
 
 import java.time.LocalDate;
 import java.util.List;

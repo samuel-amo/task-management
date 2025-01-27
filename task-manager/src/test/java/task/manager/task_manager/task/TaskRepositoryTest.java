@@ -1,10 +1,11 @@
 package task.manager.task_manager.task;
 
-import com.example.task_management.user.AppUser;
-import com.example.task_management.user.AppUserRepository;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import task.manager.task_manager.user.AppUser;
+import task.manager.task_manager.user.AppUserRepository;
 
 import java.time.LocalDate;
 import java.util.List;

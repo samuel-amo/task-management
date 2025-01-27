@@ -1,8 +1,8 @@
 package task.manager.task_manager.security;
 
-import com.example.task_management.user.AppUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import task.manager.task_manager.user.AppUser;
 
 import java.util.Collection;
 import java.util.List;

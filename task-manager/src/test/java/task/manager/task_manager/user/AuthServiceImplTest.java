@@ -1,8 +1,5 @@
 package task.manager.task_manager.user;
 
-import com.example.task_management.exception.UserAlreadyExistsException;
-import com.example.task_management.jwt.JwtService;
-import com.example.task_management.security.AppUserDetails;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +10,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import task.manager.task_manager.exception.UserAlreadyExistsException;
+import task.manager.task_manager.jwt.JwtService;
+import task.manager.task_manager.security.AppUserDetails;
 
 import java.util.Optional;
 

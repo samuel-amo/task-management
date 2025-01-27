@@ -1,7 +1,6 @@
 package task.manager.task_manager.jwt;
 
 
-import com.example.task_management.security.AppUserDetailService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import task.manager.task_manager.security.AppUserDetailService;
 
 import java.io.IOException;
 

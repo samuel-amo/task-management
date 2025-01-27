@@ -1,8 +1,5 @@
 package task.manager.task_manager.task;
 
-import com.example.task_management.exception.TaskNotFoundException;
-import com.example.task_management.security.AppUserDetails;
-import com.example.task_management.user.AppUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +9,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import task.manager.task_manager.exception.TaskNotFoundException;
+import task.manager.task_manager.security.AppUserDetails;
+import task.manager.task_manager.user.AppUser;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -133,7 +133,7 @@ class TaskServiceImplTest {
         List<TaskResponse> tasks = taskService.getTasks();
 
         assertEquals(1, tasks.size());
-        assertEquals(mockResponse, tasks.get(0));
+        assertEquals(mockResponse, tasks.getFirst());
     }
 
     @Test

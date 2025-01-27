@@ -1,8 +1,10 @@
 package task.manager.task_manager.task;
 
-import com.example.task_management.user.AppUser;
+
+
 import jakarta.persistence.*;
 import lombok.*;
+import task.manager.task_manager.user.AppUser;
 
 import java.time.LocalDate;
 

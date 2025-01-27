@@ -1,14 +1,15 @@
 package task.manager.task_manager.jwt;
 
 
-import com.example.task_management.security.AppUserDetails;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cglib.core.internal.Function;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import task.manager.task_manager.security.AppUserDetails;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
@@ -17,7 +18,8 @@ import java.util.Date;
 @Service
 public class JwtService {
 
-    private final String SECRET_KEY = "58923ce100b24436932a0ac158632ae6eeb3ca45f34194b54ad64f6cc53289de";
+    @Value("${spring.jwt.secret}")
+    private String SECRET_KEY;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);

@@ -1,10 +1,11 @@
 package task.manager.task_manager.task;
 
-import com.example.task_management.exception.TaskNotFoundException;
-import com.example.task_management.security.AppUserDetails;
-import com.example.task_management.user.AppUser;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import task.manager.task_manager.exception.TaskNotFoundException;
+import task.manager.task_manager.security.AppUserDetails;
+import task.manager.task_manager.user.AppUser;
+
 
 import java.time.LocalDate;
 import java.util.List;
