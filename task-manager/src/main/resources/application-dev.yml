@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: task-management
+  jwt:
+    secret: ${JWT_SECRET:58923ce100b24436932a0ac158632ae6eeb3ca45f34194b54ad64f6cc53289de}
+
+  datasource:
+    url:  jdbc:mysql://localhost:3306/task_db
+    username: root
+    password: password
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
