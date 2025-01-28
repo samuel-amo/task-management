@@ -6,8 +6,8 @@ spring:
 
   datasource:
     url:  ${POSTGRES_URI:jdbc:mysql://localhost:3306/task_db}
-    username: ${POSTGRES_USERNAME}
-    password: ${POSTGRES_PASSWORD}
+    username: ${POSTGRES_USERNAME:root}
+    password: ${POSTGRES_PASSWORD:password}
 
   jpa:
     hibernate:
