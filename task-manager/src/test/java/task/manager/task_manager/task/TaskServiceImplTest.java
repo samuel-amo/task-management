@@ -39,7 +39,7 @@ class TaskServiceImplTest {
     void setUp() {
         mockUser = new AppUser();
         mockUser.setUserId(1L);
-        mockUser.setEmail("test@example.com");
+        mockUser.setEmail("john.doe@example.com");
 
         AppUserDetails userDetails = new AppUserDetails(mockUser);
 
@@ -54,10 +54,11 @@ class TaskServiceImplTest {
     @Test
     void should_Create_TaskSuccessfully() {
         TaskRequest taskRequest = new TaskRequest(
-                "Task Title",
-                "Task Description",
-                LocalDate.now(),
-                "HIGH");
+                "Prepare Project Proposal",
+                "Draft the project proposal for the upcoming client meeting",
+                LocalDate.of(2025, 3, 10),
+                "HIGH"
+        );
         Task mockTask = new Task();
         when(taskMapper.mapToTask(taskRequest)).thenReturn(mockTask);
 
@@ -71,59 +72,59 @@ class TaskServiceImplTest {
     void should_Return_FilteredTasks_By_Criteria() {
         Task mockTask = new Task();
         TaskResponse mockResponse = new TaskResponse(
-                1L,
-                "cleaning",
-                "cleaning the house",
-                LocalDate.of(2025, 4, 25),
-                "HIGH",
-                "COMPLETED"
+                101L,
+                "Submit Financial Report",
+                "Compile and submit the financial report for Q1",
+                LocalDate.of(2025, 3, 15),
+                "MEDIUM",
+                "PENDING"
         );
 
-        when(taskRepository.findTasksByUserAndCriteria(mockUser.getEmail(), Status.PENDING, Priority.HIGH, LocalDate.now()))
+        when(taskRepository.findTasksByUserAndCriteria(mockUser.getEmail(), Status.PENDING, Priority.MEDIUM, LocalDate.now()))
                 .thenReturn(List.of(mockTask));
         when(taskMapper.mapToTaskResponse(mockTask)).thenReturn(mockResponse);
 
-        List<TaskResponse> tasks = taskService.getFilteredTasks(Status.PENDING, Priority.HIGH, LocalDate.now());
+        List<TaskResponse> tasks = taskService.getFilteredTasks(Status.PENDING, Priority.MEDIUM, LocalDate.now());
 
         assertEquals(1, tasks.size());
-        assertEquals(mockResponse, tasks.getFirst());
+        assertEquals(mockResponse, tasks.get(0));
     }
 
     @Test
     void should_Return_TaskBy_Id_Successfully() {
         Task mockTask = new Task();
         TaskResponse mockResponse = new TaskResponse(
-                1L,
-                "cleaning",
-                "cleaning the house",
-                LocalDate.of(2025, 4, 25),
-                "HIGH",
-                "COMPLETED"
+                102L,
+                "Plan Team Outing",
+                "Organize a team-building outing for next month",
+                LocalDate.of(2025, 4, 5),
+                "LOW",
+                "IN_PROGRESS"
         );
 
-        when(taskRepository.findByTaskIdAndAppUser(1L, mockUser)).thenReturn(Optional.of(mockTask));
+        when(taskRepository.findByTaskIdAndAppUser(102L, mockUser)).thenReturn(Optional.of(mockTask));
         when(taskMapper.mapToTaskResponse(mockTask)).thenReturn(mockResponse);
 
-        TaskResponse response = taskService.getTask(1L);
+        TaskResponse response = taskService.getTask(102L);
 
         assertEquals(mockResponse, response);
     }
 
     @Test
     void should_Throw_Exception_When_Task_Not_FoundBy_Id() {
-        when(taskRepository.findByTaskIdAndAppUser(1L, mockUser)).thenReturn(Optional.empty());
+        when(taskRepository.findByTaskIdAndAppUser(200L, mockUser)).thenReturn(Optional.empty());
 
-        assertThrows(TaskNotFoundException.class, () -> taskService.getTask(1L));
+        assertThrows(TaskNotFoundException.class, () -> taskService.getTask(200L));
     }
 
     @Test
     void should_Return_All_Tasks_For_AuthenticatedUser() {
         Task mockTask = new Task();
         TaskResponse mockResponse = new TaskResponse(
-                1L,
-                "cleaning",
-                "cleaning the house",
-                LocalDate.of(2025, 4, 25),
+                103L,
+                "Prepare Presentation Slides",
+                "Create slides for the product demo presentation",
+                LocalDate.of(2025, 2, 20),
                 "HIGH",
                 "COMPLETED"
         );
@@ -133,44 +134,44 @@ class TaskServiceImplTest {
         List<TaskResponse> tasks = taskService.getTasks();
 
         assertEquals(1, tasks.size());
-        assertEquals(mockResponse, tasks.getFirst());
+        assertEquals(mockResponse, tasks.get(0));
     }
 
     @Test
     void should_Delete_Task_Successfully() {
         Task mockTask = new Task();
-        when(taskRepository.findByTaskIdAndAppUser(1L, mockUser)).thenReturn(Optional.of(mockTask));
+        when(taskRepository.findByTaskIdAndAppUser(104L, mockUser)).thenReturn(Optional.of(mockTask));
 
-        taskService.deleteTask(1L);
+        taskService.deleteTask(104L);
 
         verify(taskRepository).delete(mockTask);
     }
 
     @Test
     void should_Throw_Exception_When_Deleting_Non_Existent_Task() {
-        when(taskRepository.findByTaskIdAndAppUser(1L, mockUser)).thenReturn(Optional.empty());
+        when(taskRepository.findByTaskIdAndAppUser(300L, mockUser)).thenReturn(Optional.empty());
 
-        assertThrows(TaskNotFoundException.class, () -> taskService.deleteTask(1L));
+        assertThrows(TaskNotFoundException.class, () -> taskService.deleteTask(300L));
     }
 
     @Test
     void should_Update_Task_Successfully() {
         Task mockTask = new Task();
         TaskUpdateRequest taskUpdateRequest = new TaskUpdateRequest(
-                1L,
-                "Updated Title",
-                "Updated Description",
-                LocalDate.now(),
+                105L,
+                "Update Client Contact List",
+                "Add new client details to the contact database",
+                LocalDate.of(2025, 3, 1),
                 "LOW",
                 "COMPLETED"
         );
-        when(taskRepository.findByTaskIdAndAppUser(1L, mockUser)).thenReturn(Optional.of(mockTask));
+        when(taskRepository.findByTaskIdAndAppUser(105L, mockUser)).thenReturn(Optional.of(mockTask));
 
-        taskService.updateTask(1L, taskUpdateRequest);
+        taskService.updateTask(105L, taskUpdateRequest);
 
-        assertEquals("Updated Title", mockTask.getTitle());
-        assertEquals("Updated Description", mockTask.getDescription());
-        assertEquals(LocalDate.now(), mockTask.getDeadline());
+        assertEquals("Update Client Contact List", mockTask.getTitle());
+        assertEquals("Add new client details to the contact database", mockTask.getDescription());
+        assertEquals(LocalDate.of(2025, 3, 1), mockTask.getDeadline());
         assertEquals(Status.COMPLETED, mockTask.getStatus());
         assertEquals(Priority.LOW, mockTask.getPriority());
         verify(taskRepository).save(mockTask);
@@ -179,15 +180,15 @@ class TaskServiceImplTest {
     @Test
     void should_Throw_Exception_When_Updating_Non_Existent_Task() {
         TaskUpdateRequest taskUpdateRequest = new TaskUpdateRequest(
-                1L,
-                "Updated Title",
-                "Updated Description",
-                LocalDate.now(),
-                "LOW",
-                "COMPLETED"
+                400L,
+                "Non-Existent Task",
+                "This task does not exist in the system",
+                LocalDate.of(2025, 4, 15),
+                "MEDIUM",
+                "PENDING"
         );
-        when(taskRepository.findByTaskIdAndAppUser(1L, mockUser)).thenReturn(Optional.empty());
+        when(taskRepository.findByTaskIdAndAppUser(400L, mockUser)).thenReturn(Optional.empty());
 
-        assertThrows(TaskNotFoundException.class, () -> taskService.updateTask(1L, taskUpdateRequest));
+        assertThrows(TaskNotFoundException.class, () -> taskService.updateTask(400L, taskUpdateRequest));
     }
 }

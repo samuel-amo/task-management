@@ -19,10 +19,10 @@ class AppUserRepositoryTest {
     void should_find_AppUser_ByEmail() {
 
         AppUser appUser = new AppUser();
-        appUser.setEmail("test@test.com");
+        appUser.setEmail("samuelamo55@outlook.com");
 
         appUserRepository.save(appUser);
-        Optional<AppUser> appUserOptional = appUserRepository.findByEmail("test@test.com");
+        Optional<AppUser> appUserOptional = appUserRepository.findByEmail("samuelamo55@outlook.com");
         assertTrue(appUserOptional.isPresent());
         assertEquals(appUser.getEmail(), appUserOptional.get().getEmail());
 

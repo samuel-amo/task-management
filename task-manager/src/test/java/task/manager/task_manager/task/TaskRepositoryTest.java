@@ -26,7 +26,7 @@ class TaskRepositoryTest {
     void should_FindTasks_By_AppUser() {
 
         AppUser user = new AppUser();
-        user.setEmail("user1@example.com");
+        user.setEmail("samuelamo55@outlook.com");
         user = appUserRepository.save(user);
 
         Task task = new Task();
@@ -38,14 +38,14 @@ class TaskRepositoryTest {
 
 
         assertThat(tasks).hasSize(1);
-        assertThat(tasks.get(0).getAppUser().getEmail()).isEqualTo("user1@example.com");
+        assertThat(tasks.get(0).getAppUser().getEmail()).isEqualTo("samuelamo55@outlook.com");
     }
 
     @Test
     void should_FindTask_By_TaskId_And_AppUser() {
 
         AppUser user = new AppUser();
-        user.setEmail("user2@example.com");
+        user.setEmail("samuelamo55@outlook.com");
         user = appUserRepository.save(user);
 
         Task task = new Task();
@@ -57,7 +57,7 @@ class TaskRepositoryTest {
 
 
         assertThat(foundTask).isPresent();
-        assertThat(foundTask.get().getAppUser().getEmail()).isEqualTo("user2@example.com");
+        assertThat(foundTask.get().getAppUser().getEmail()).isEqualTo("samuelamo55@outlook.com");
     }
 
 
@@ -66,7 +66,7 @@ class TaskRepositoryTest {
     void should_FindTasks_By_User_And_Criteria() {
 
         AppUser user = new AppUser();
-        user.setEmail("user3@example.com");
+        user.setEmail("samuelamo55@outlook.com");
         user = appUserRepository.save(user);
 
         Task task1 = new Task();
@@ -86,7 +86,7 @@ class TaskRepositoryTest {
 
 
         List<Task> tasks = taskRepository.findTasksByUserAndCriteria(
-                "user3@example.com",
+                "samuelamo55@outlook.com",
                 Status.PENDING,
                 null,
                 null

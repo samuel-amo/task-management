@@ -45,10 +45,10 @@ public class AuthServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        signUpRequest = new SignUpRequest("user@example.com", "password");
-        loginRequest = new LoginRequest("user@example.com", "password");
+        signUpRequest = new SignUpRequest("samuelamo55@outlook.com", "password");
+        loginRequest = new LoginRequest("samuelamo55@outlook.com", "password");
 
-        appUser = new AppUser(1L, "user@example.com", "encodedPassword");
+        appUser = new AppUser(1L, "samuelamo55@outlook.com", "encodedPassword");
         appUserDetails = new AppUserDetails(appUser);
     }
 
@@ -81,7 +81,7 @@ public class AuthServiceImplTest {
         LoginResponse response = authService.login(loginRequest);
 
 
-        assertEquals("user@example.com", response.userEmail());
+        assertEquals("samuelamo55@outlook.com", response.userEmail());
         assertEquals("jwtToken", response.token());
     }
 
