@@ -8,14 +8,15 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cglib.core.internal.Function;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import task.manager.task_manager.security.AppUserDetails;
+import task.manager.task_manager.security.AppUserDetailsImpl;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
 
 
-@Service
+@Component
 public class JwtService {
 
     @Value("${spring.jwt.secret}")
@@ -52,7 +53,7 @@ public class JwtService {
                 .parseSignedClaims(token)
                 .getPayload();
     }
-    public String generateToken(AppUserDetails user) {
+    public String generateToken(AppUserDetailsImpl user) {
         return Jwts
                 .builder()
                 .subject(user.getUsername())

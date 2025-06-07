@@ -9,5 +9,5 @@ public interface TaskService {
     List<TaskResponse> getTasks();
     void deleteTask(Long id);
     void updateTask(Long taskId, TaskUpdateRequest taskUpdateRequest);
-    List<TaskResponse> getFilteredTasks(Status status, Priority priority, LocalDate deadline);
+
 }

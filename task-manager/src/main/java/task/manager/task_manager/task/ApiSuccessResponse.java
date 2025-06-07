@@ -1,7 +1,13 @@
 package task.manager.task_manager.task;
 
-public record ApiSuccessResponse(
+import java.time.Instant;
+import java.util.Optional;
 
-        String message
+public record ApiSuccessResponse<T>(
 
-){}
+        String status,
+        T data
+
+
+) {}
+

@@ -12,7 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import task.manager.task_manager.exception.UserAlreadyExistsException;
 import task.manager.task_manager.jwt.JwtService;
-import task.manager.task_manager.security.AppUserDetails;
+import task.manager.task_manager.security.AppUserDetailsImpl;
 
 import java.util.Optional;
 
@@ -41,7 +41,7 @@ public class AuthServiceImplTest {
     private SignUpRequest signUpRequest;
     private LoginRequest loginRequest;
     private AppUser appUser;
-    private AppUserDetails appUserDetails;
+    private AppUserDetailsImpl appUserDetails;
 
     @BeforeEach
     void setUp() {
@@ -49,7 +49,7 @@ public class AuthServiceImplTest {
         loginRequest = new LoginRequest("samuelamo55@outlook.com", "password");
 
         appUser = new AppUser(1L, "samuelamo55@outlook.com", "encodedPassword");
-        appUserDetails = new AppUserDetails(appUser);
+        appUserDetails = new AppUserDetailsImpl(appUser);
     }
 
     @Test

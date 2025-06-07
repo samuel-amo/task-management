@@ -8,11 +8,11 @@ import task.manager.task_manager.user.AppUser;
 import task.manager.task_manager.user.AppUserRepository;
 
 @Service
-public class AppUserDetailService implements UserDetailsService {
+public class AppUserDetailServiceImpl implements UserDetailsService {
 
     private final AppUserRepository appUserRepository;
 
-    public AppUserDetailService(AppUserRepository appUserRepository) {
+    public AppUserDetailServiceImpl(AppUserRepository appUserRepository) {
         this.appUserRepository = appUserRepository;
     }
 
@@ -20,6 +20,6 @@ public class AppUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         AppUser appUser = appUserRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with email: " + email));
-        return new AppUserDetails(appUser);
+        return new AppUserDetailsImpl(appUser);
     }
 }

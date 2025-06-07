@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 public record TaskUpdateRequest(
 
-        Long taskId,
+        Long id,
 
         @Size(max = 100, message = "Title must be up to 100 characters")
         String title,
@@ -17,12 +17,6 @@ public record TaskUpdateRequest(
         String description,
 
         @JsonFormat(pattern = "yyyy-MM-dd")
-        LocalDate deadline,
-
-        @Pattern(regexp = "LOW|MEDIUM|HIGH", message = "Priority must be one of the following values: LOW, MEDIUM, HIGH")
-        String priority,
-
-        @Pattern(regexp = "PENDING|IN_PROGRESS|COMPLETED", message = "Status must be one of the following values: PENDING, IN_PROGRESS, COMPLETED")
-        String status
+        LocalDate deadline
 
 ) {}

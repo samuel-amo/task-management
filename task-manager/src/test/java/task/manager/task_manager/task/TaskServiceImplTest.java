@@ -10,7 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import task.manager.task_manager.exception.TaskNotFoundException;
-import task.manager.task_manager.security.AppUserDetails;
+import task.manager.task_manager.security.AppUserDetailsImpl;
 import task.manager.task_manager.user.AppUser;
 
 import java.time.LocalDate;
@@ -41,7 +41,7 @@ class TaskServiceImplTest {
         mockUser.setUserId(1L);
         mockUser.setEmail("john.doe@example.com");
 
-        AppUserDetails userDetails = new AppUserDetails(mockUser);
+        AppUserDetailsImpl userDetails = new AppUserDetailsImpl(mockUser);
 
         Authentication authentication = mock(Authentication.class);
         SecurityContext securityContext = mock(SecurityContext.class);

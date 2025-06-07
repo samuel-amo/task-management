@@ -7,8 +7,6 @@ public record TaskResponse(
         Long taskId,
         String title,
         String description,
-        LocalDate deadline,
-        String priority,
-        String status
+        LocalDate deadline
 
 ){}

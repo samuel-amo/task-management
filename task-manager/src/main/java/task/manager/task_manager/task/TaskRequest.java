@@ -20,10 +20,6 @@ public record TaskRequest(
 
         @NotNull(message = "Deadline is required")
         @JsonFormat(pattern = "yyyy-MM-dd")
-        LocalDate deadline,
-
-        @NotBlank(message = "Priority is required")
-        @Pattern(regexp = "LOW|MEDIUM|HIGH", message = "Priority must be one of the following values: LOW, MEDIUM, HIGH")
-        String priority
+        LocalDate deadline
 
 ) {}

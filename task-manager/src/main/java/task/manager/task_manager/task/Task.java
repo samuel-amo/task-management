@@ -17,17 +17,9 @@ import java.time.LocalDate;
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long taskId;
+    private Long id;
     private String title;
     private String description;
     private LocalDate deadline;
-    @Enumerated(EnumType.STRING)
-    private Priority priority;
-    @Enumerated(EnumType.STRING)
-    private Status status;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private AppUser appUser;
 
 }

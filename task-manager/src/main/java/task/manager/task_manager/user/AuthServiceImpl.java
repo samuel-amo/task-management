@@ -1,6 +1,8 @@
 package task.manager.task_manager.user;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -8,10 +10,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import task.manager.task_manager.exception.UserAlreadyExistsException;
 import task.manager.task_manager.jwt.JwtService;
-import task.manager.task_manager.security.AppUserDetails;
+import task.manager.task_manager.security.AppUserDetailsImpl;
 
 @Service
 public class AuthServiceImpl implements AuthService {
+
+    private final Logger LOGGER = LoggerFactory.getLogger(AuthServiceImpl.class);
 
     private final AuthenticationManager authenticationManager;
     private final AppUserRepository appUserRepository;
@@ -34,10 +38,12 @@ public class AuthServiceImpl implements AuthService {
 
         AppUser newUser = new AppUser();
         newUser.setEmail(signUpRequest.email());
+        newUser.setRole(Role.valueOf(signUpRequest.role().toUpperCase()));
         newUser.setPassword(passwordEncoder.encode(signUpRequest.password()));
 
         appUserRepository.save(newUser);
 
+        LOGGER.info("A User With Email: {} Has Been Registered", signUpRequest.email());
     }
 
     public LoginResponse login(LoginRequest request) {
@@ -45,7 +51,7 @@ public class AuthServiceImpl implements AuthService {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.email(), request.password()));
 
-        AppUserDetails userDetails = (AppUserDetails) authentication.getPrincipal();
+        AppUserDetailsImpl userDetails = (AppUserDetailsImpl) authentication.getPrincipal();
 
         String token = jwtService.generateToken(userDetails);
 

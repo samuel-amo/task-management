@@ -11,7 +11,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.intercept.AuthorizationFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import task.manager.task_manager.exception.AppAccessDeniedHandler;
+import task.manager.task_manager.exception.AppAuthenticationEntryPoint;
 import task.manager.task_manager.jwt.JwtAuthenticationFilter;
 
 @Configuration
@@ -19,9 +22,13 @@ import task.manager.task_manager.jwt.JwtAuthenticationFilter;
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final AppAuthenticationEntryPoint appAuthenticationEntryPoint;
+    private final AppAccessDeniedHandler appAccessDeniedHandler;
 
-    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter, AppAuthenticationEntryPoint appAuthenticationEntryPoint, AppAccessDeniedHandler appAccessDeniedHandler) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+        this.appAuthenticationEntryPoint = appAuthenticationEntryPoint;
+        this.appAccessDeniedHandler = appAccessDeniedHandler;
     }
 
 
@@ -32,12 +39,16 @@ public class SecurityConfig {
                 .authorizeHttpRequests( authorizeRequests -> authorizeRequests
                         .requestMatchers("/api/v1/auth/**")
                         .permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
+                )
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint(appAuthenticationEntryPoint)
+                        .accessDeniedHandler(appAccessDeniedHandler)
                 )
                 .sessionManagement(sessionManagementConfigurer -> sessionManagementConfigurer
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthenticationFilter, AuthorizationFilter.class)
 
                 .build();
     }
