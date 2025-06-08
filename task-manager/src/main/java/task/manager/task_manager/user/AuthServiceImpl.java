@@ -61,4 +61,10 @@ public class AuthServiceImpl implements AuthService {
                 .token(token)
                 .build();
     }
+
+    private void checkDuplicate(SignUpRequest signUpRequest) {
+        appUserRepository.findByEmail(signUpRequest.email()).ifPresent(appUser -> {
+            throw new UserAlreadyExistsException("User with email + " + signUpRequest.email() + " already exists");
+        });
+    }
 }
