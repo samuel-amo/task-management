@@ -15,7 +15,7 @@ import task.manager.task_manager.security.AppUserDetailsImpl;
 @Service
 public class AuthServiceImpl implements AuthService {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(AuthServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthServiceImpl.class);
 
     private final AuthenticationManager authenticationManager;
     private final AppUserRepository appUserRepository;
