@@ -32,9 +32,7 @@ public class AuthServiceImpl implements AuthService {
 
     public void register(SignUpRequest signUpRequest) {
 
-        appUserRepository.findByEmail(signUpRequest.email()).ifPresent(appUser -> {
-            throw new UserAlreadyExistsException("User already exists with email: " + signUpRequest.email());
-        });
+        checkDuplicate(signUpRequest);
 
         AppUser newUser = AppUser.builder()
                 .email(signUpRequest.email())
