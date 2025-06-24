@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public record TaskResponse(
 
-        Long taskId,
+        Long id,
         String title,
         String description,
         LocalDate deadline

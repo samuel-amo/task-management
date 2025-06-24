@@ -1,19 +1,18 @@
 package task.manager.task_manager.task;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
+
 public record TaskUpdateRequest(
 
-        Long id,
 
-        @Size(max = 100, message = "Title must be up to 100 characters")
+        @Size(max = 100, message = "Title must not exceed 100 characters")
         String title,
 
-        @Size(max = 500, message = "Description must be up to 500 characters")
+        @Size(max = 500, message = "Description must not exceed 500 characters")
         String description,
 
         @JsonFormat(pattern = "yyyy-MM-dd")
