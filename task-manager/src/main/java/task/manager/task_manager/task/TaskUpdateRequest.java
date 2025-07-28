@@ -2,12 +2,14 @@ package task.manager.task_manager.task;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Size;
+import org.springframework.web.client.RestClient;
 
 import java.time.LocalDate;
 
 
-public record TaskUpdateRequest(
 
+
+public record TaskUpdateRequest(
 
         @Size(max = 100, message = "Title must not exceed 100 characters")
         String title,

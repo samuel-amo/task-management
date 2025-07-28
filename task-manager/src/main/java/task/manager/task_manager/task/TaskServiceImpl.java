@@ -77,8 +77,6 @@ public class TaskServiceImpl implements TaskService {
     }
 
 
-
-
     private Task findTaskByIdAndValidateOwnership(Long taskId) {
         String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
 
