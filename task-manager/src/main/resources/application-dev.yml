@@ -14,3 +14,12 @@ spring:
       ddl-auto: update
     show-sql: true
 
+# Actuator specific settings
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, prometheus
+  endpoint:
+    health:
+      show-details: always
