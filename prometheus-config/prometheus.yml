@@ -1,0 +1,11 @@
+global:
+  scrape_interval: 15s # How often to scrape the targets.
+
+scrape_configs:
+  # This job scrapes metrics from your Spring Boot application.
+  - job_name: 'task-management'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      # 'host.docker.internal' is a special DNS name that allows the
+      # Prometheus Docker container to connect to services running on your host machine.
+      - targets: ['host.docker.internal:8080']
