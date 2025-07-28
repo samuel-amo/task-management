@@ -10,7 +10,7 @@ public record JSendSuccessResponse<T>(String status, T data) {
     }
 
 
-    public static JSendSuccessResponse<Object> empty() {
+    public static JSendSuccessResponse<Void> empty() {
         return new JSendSuccessResponse<>(SUCCESS_STATUS, null);
     }
 }

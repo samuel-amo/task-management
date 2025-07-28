@@ -23,7 +23,7 @@ public class AuthController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<JSendSuccessResponse<Object>> register(@Valid @RequestBody SignUpRequest signUpRequest) {
+    public ResponseEntity<JSendSuccessResponse<Void>> register(@Valid @RequestBody SignUpRequest signUpRequest) {
         authService.register(signUpRequest);
 
         return ResponseEntity
